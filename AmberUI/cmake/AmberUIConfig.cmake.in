@@ -1,0 +1,11 @@
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/AmberUITargets.cmake")
+check_required_components(AmberUI)
+
+# Amber UI is renderer agnostic but its public headers include <imgui.h>.
+# Consumers must provide a Dear ImGui target (or include directory) before
+# linking AmberUI::AmberUI.
+if (NOT TARGET ImGui)
+    message(STATUS "AmberUI: Dear ImGui target not found. Add Dear ImGui and ensure <imgui.h> is on the include path.")
+endif()
